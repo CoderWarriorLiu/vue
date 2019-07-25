@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<title></title>
+	</head>
+	<body>
+		<div id = 'app'>
+			{{message}}
+		</div>
+		<div id="app-2">
+			<span v-bind:title="message">
+				mouse stop
+			</span>
+		</div>
+		
+		<div id="app3">
+			<p v-if="seen"> I see you</p>
+		</div>
+		
+		<div id='app-4'>
+			<li v-for="x in lis">
+				{{x.text}}
+			</li>
+		</div>
+		
+		<div id="app-5">
+			<p>{{message}}</p>
+			<button v-on:click="reverseMessage">reverse</button>
+			<input v-model="message" />
+			
+		</div>
+		
+		<div id= "app-7">
+			<ol>
+				<todo-item
+					v-for="item in gList1"
+					v-bind:todo="item"
+					v-bind:key="item.id">
+				</todo-item>
+			</ol>
+			<ol>
+				<todo-item
+					v-for='item in gList'
+					v-bind:todo='item'
+					v-bind:key='item.id'>
+				</todo-item>
+			</ol>
+		</div>
+		
+		
+		<script>
+			var app = new Vue({
+				el: '#app',
+				data: {
+					message: 'First Vue Hello!'
+				}
+			})
+			
+			var app2 = new Vue({
+				el: '#app-2',
+				data: {
+					message: '页面加载于' + new Date().toLocaleString()
+				}
+			})
+			
+			var app3 = new Vue({
+				el: '#app3',
+				data: {
+					seen :true
+				}
+			})
+			
+			var app4 = new Vue({
+				el: '#app-4',
+				data: {
+					lis: [
+						{text:"li1"},
+						{text:"li2"},
+						{text:"li3"},
+						{text:"li4"}
+					]
+				}
+			})
+			
+			var app5 = new Vue({
+				el: '#app-5',
+				data: {
+					message:'Hello Vue'
+				},
+				methods:{
+					reverseMessage: function() {
+						this.message = this.message.split('').reverse().join('')
+					}
+				}
+			})
+			
+			Vue.component('todo-item',{
+				props:['todo','todo1'],
+				template:'<li>{{todo.text}}</li>'
+			})
+			
+			var app7 = new Vue({
+				el:'#app-7',
+				data:{
+					gList:[
+						{id:0,text:"shucai0"},
+						{id:1,text:"shucai1"},
+						{id:2,text:"shucai2"},
+						{id:3,text:"shucai3"}
+					],
+					gList1:[
+						{id:0,text:"rou1"},
+						{id:1,text:"rou2"},
+						{id:2,text:"rou3"},
+						{id:3,text:"rou4"}
+					]
+				}
+			})
+			
+		</script>
+	</body>
+</html>
